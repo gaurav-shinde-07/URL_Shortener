@@ -1,0 +1,45 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TinyLink — Stats</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-sky-50 min-h-screen text-slate-800">
+  <header class="max-w-4xl mx-auto p-6">
+    <a href="/" class="text-sky-700">&larr; Back</a>
+  </header>
+  <main class="max-w-4xl mx-auto p-6">
+    <div id="content" class="bg-white p-6 rounded-2xl shadow-lg"></div>
+  </main>
+  <script>
+    async function load() {
+      const parts = location.pathname.split('/code/');
+      const code = parts[1] || '';
+      const el = document.getElementById('content');
+      el.innerHTML = '<div>Loading...</div>';
+      try {
+        const res = await fetch('/api/links/' + code);
+        if (!res.ok) {
+          el.innerHTML = '<div class="text-rose-600">Not found</div>';
+          return;
+        }
+        const data = await res.json();
+        el.innerHTML = `
+          <h2 class="text-2xl font-semibold mb-2">${data.code}</h2>
+          <div class="space-y-2 text-sm text-slate-700">
+            <div><strong>Target:</strong> <a href="${data.url}" target="_blank" class="text-sky-600">${data.url}</a></div>
+            <div><strong>Clicks:</strong> ${data.clicks}</div>
+            <div><strong>Created:</strong> ${new Date(data.created_at).toLocaleString()}</div>
+            <div><strong>Last Clicked:</strong> ${data.last_clicked ? new Date(data.last_clicked).toLocaleString() : '—'}</div>
+          </div>
+        `;
+      } catch (err) {
+        el.innerHTML = '<div class="text-rose-600">Error loading data</div>';
+      }
+    }
+    load();
+  </script>
+</body>
+</html>

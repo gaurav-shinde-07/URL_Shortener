@@ -1,0 +1,93 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TinyLink — Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+  .glass {
+    background: rgba(255,255,255,0.6);
+    -webkit-backdrop-filter: blur(6px); /* Safari fix */
+    backdrop-filter: blur(6px);
+  }
+</style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-sky-50 min-h-screen text-slate-800">
+  <header class="max-w-6xl mx-auto p-6 flex items-center justify-between">
+    <div class="flex items-center space-x-3">
+      <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold">TL</div>
+      <div>
+        <h1 class="text-2xl font-semibold">TinyLink</h1>
+        <p class="text-sm text-slate-600">Smart, simple URL shortener — polished for assessments</p>
+      </div>
+    </div>
+    <nav class="text-sm space-x-4">
+      <a href="/" class="text-sky-700 hover:underline">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <section class="lg:col-span-2">
+      <div class="glass p-6 rounded-2xl shadow-lg animate__animated animate__fadeInUp">
+        <h2 class="text-lg font-medium mb-4">Create a short link</h2>
+        <form id="createForm" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <input id="url" placeholder="https://example.com/long/path" class="col-span-2 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-sky-300" />
+          <input id="code" placeholder="Custom code (6-8 chars) — optional" class="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-sky-300" />
+          <div class="col-span-3 flex items-center justify-between mt-2">
+            <div class="text-sm text-rose-600" id="message"></div>
+            <div class="flex items-center space-x-2">
+              <button id="createBtn" class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Create</button>
+              <button id="sampleBtn" type="button" class="px-3 py-2 border rounded-lg text-sm">Sample</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="mt-6 bg-white p-4 rounded-2xl shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-medium">All Links</h3>
+          <input id="filter" placeholder="Search by code or URL" class="px-3 py-2 border rounded-lg" />
+        </div>
+        <div id="tableWrap" class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead class="text-left text-slate-500">
+              <tr>
+                <th class="px-3 py-2">Code</th>
+                <th class="px-3 py-2">Target URL</th>
+                <th class="px-3 py-2">Clicks</th>
+                <th class="px-3 py-2">Last Clicked</th>
+                <th class="px-3 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="list"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <aside class="space-y-4">
+      <div class="p-4 rounded-2xl glass shadow-md">
+        <h4 class="font-medium">Tips</h4>
+        <ul class="text-sm text-slate-600 mt-2 space-y-2">
+          <li>Use https URLs only.</li>
+          <li>Custom codes must be 6–8 alphanumeric characters.</li>
+          <li>Deleted links are soft-deleted (not shown).</li>
+        </ul>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white shadow-md text-sm">
+        <h4 class="font-medium">Export</h4>
+        <p class="mt-2">You can copy individual short URLs using the Copy button.</p>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="max-w-6xl mx-auto p-6 text-sm text-slate-500">
+    Built for assessment • Clean code • Modern UI
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Enforce LF for code files
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+
+# Do NOT touch node_modules at all
+node_modules/** -text
+
+# Auto-detect everything else
+* text=auto
