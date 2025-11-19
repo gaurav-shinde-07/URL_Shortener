@@ -4,17 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TinyLink — Dashboard</title>
+
+  <!-- Tailwind CDN (REQUIRED) -->
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Animations -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
   <style>
   .glass {
-    background: rgba(255,255,255,0.6);
-    -webkit-backdrop-filter: blur(6px); /* Safari fix */
+    background: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
   }
 </style>
+
 </head>
+
 <body class="bg-gradient-to-br from-slate-50 to-sky-50 min-h-screen text-slate-800">
+
   <header class="max-w-6xl mx-auto p-6 flex items-center justify-between">
     <div class="flex items-center space-x-3">
       <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold">TL</div>
@@ -38,8 +46,10 @@
           <div class="col-span-3 flex items-center justify-between mt-2">
             <div class="text-sm text-rose-600" id="message"></div>
             <div class="flex items-center space-x-2">
-              <button id="createBtn" class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Create</button>
-              <button id="sampleBtn" type="button" class="px-3 py-2 border rounded-lg text-sm">Sample</button>
+             <button id="createBtn" type="submit" class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700">Create</button>
+
+<button id="sampleBtn" type="button" class="px-3 py-2 border rounded-lg text-sm">Sample</button>
+
             </div>
           </div>
         </form>

@@ -50,8 +50,8 @@ app.post('/api/links', async (req, res) => {
     let found = null;
     do {
       finalCode = Array.from({ length: 7 })
-        .map(() => chars[Math.floor(Math.random() * chars.length)])
-        .join('');
+        .map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+
       found = await db.getLink(finalCode);
     } while (found);
   }
@@ -87,10 +87,15 @@ app.delete('/api/links/:code', async (req, res) => {
   res.json({ ok: true });
 });
 
-// Serve static frontend
+// Serve static frontend files
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-// Redirect handler
+// ⭐ Serve the stats UI (code.html)
+app.get('/code', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'code.html'));
+});
+
+// Redirect short URL → original URL
 app.get('/:code', async (req, res) => {
   const row = await db.getLink(req.params.code);
   if (!row) return res.status(404).send('Not found');
@@ -99,15 +104,15 @@ app.get('/:code', async (req, res) => {
   res.redirect(302, row.url);
 });
 
-// Initialize DB then start server
+// Start server after DB init
 const start = async () => {
   try {
     await db.init();
     app.listen(PORT, () => {
-      console.log(`TinyLink listening on ${PORT} - base url ${BASE_URL}`);
+      console.log(`TinyLink listening on ${PORT} - base URL: ${BASE_URL}`);
     });
   } catch (err) {
-    console.error('Failed to initialize DB', err);
+    console.error("Failed to initialize database", err);
     process.exit(1);
   }
 };
