@@ -68,11 +68,20 @@ async function loadLinks() {
         <td class="px-3 py-2">${row.clicks}</td>
         <td class="px-3 py-2">${row.last_clicked || "Never"}</td>
         <td class="px-3 py-2 space-x-2">
-          <button class="text-blue-600 underline" onclick="copy('${row.code}')">Copy</button>
+          <button class="text-blue-600 underline copy-btn" data-code="${row.code}">Copy</button>
           <a class="text-green-600 underline" href="/code?code=${row.code}">View</a>
-          <button class="text-rose-600 underline" onclick="del('${row.code}')">Delete</button>
+          <button class="text-rose-600 underline delete-btn" data-code="${row.code}">Delete</button>
         </td>
       `;
+
+      // Add event listeners safely (no inline JS)
+      tr.querySelector(".copy-btn").addEventListener("click", (e) => {
+        copy(e.target.dataset.code);
+      });
+
+      tr.querySelector(".delete-btn").addEventListener("click", (e) => {
+        del(e.target.dataset.code);
+      });
 
       listEl.appendChild(tr);
     });
