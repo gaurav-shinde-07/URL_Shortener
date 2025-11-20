@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>TinyLink — Stats</title>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Local Tailwind -->
+  <link rel="stylesheet" href="/css/output.css">
 
   <!-- Animations -->
   <link rel="stylesheet"
@@ -15,9 +15,7 @@
   <style>
     .glass {
       background: rgba(255, 255, 255, 0.6);
-
-      /* Fix: vendor prefix first */
-      -webkit-backdrop-filter: blur(6px); /* Safari support */
+      -webkit-backdrop-filter: blur(6px);
       backdrop-filter: blur(6px);
     }
   </style>
@@ -25,7 +23,6 @@
 
 <body class="bg-gradient-to-br from-slate-50 to-sky-50 min-h-screen text-slate-800">
 
-  <!-- HEADER -->
   <header class="max-w-6xl mx-auto p-6 flex items-center justify-between">
     <div class="flex items-center space-x-3">
       <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold">
@@ -36,15 +33,15 @@
         <p class="text-sm text-slate-600">Link statistics & analytics</p>
       </div>
     </div>
+
     <nav class="text-sm space-x-4">
-      <a href="/" class="text-sky-700 hover:underline">Dashboard</a>
+      <a href="./" class="text-sky-700 hover:underline">Dashboard</a>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
   <main class="max-w-4xl mx-auto p-6 animate__animated animate__fadeInUp">
     <div class="glass p-6 rounded-2xl shadow-lg">
-      
+
       <h2 class="text-xl font-semibold mb-4">Stats for your link</h2>
 
       <div class="space-y-3 text-sm">
@@ -53,15 +50,13 @@
         </p>
 
         <p><span class="font-medium">Original URL:</span>
-          <a id="target" href="#" target="_blank" 
-             class="text-sky-600 underline"
-             title="Open original URL"></a>
+          <a id="target" href="#" target="_blank"
+             class="text-sky-600 underline"></a>
         </p>
 
         <p><span class="font-medium">Short URL:</span>
-          <a id="short" href="#" target="_blank" 
-             class="text-sky-600 underline"
-             title="Open short URL"></a>
+          <a id="short" href="#" target="_blank"
+             class="text-sky-600 underline"></a>
         </p>
 
         <p><span class="font-medium">Clicks:</span>
@@ -76,8 +71,7 @@
       <hr class="my-6">
 
       <button onclick="copyShortUrl()"
-        class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700"
-        type="button">
+        class="px-4 py-2 bg-sky-600 text-white rounded-lg hover:bg-sky-700">
         Copy Short URL
       </button>
     </div>
@@ -87,7 +81,6 @@
     Clean UI • Modern Design • Assessment Ready
   </footer>
 
-  <!-- SCRIPT -->
   <script>
     const params = new URLSearchParams(window.location.search);
     const code = params.get("code");
@@ -104,7 +97,7 @@
       .then(row => {
         document.getElementById("target").textContent = row.url;
         document.getElementById("target").href = row.url;
-
+        
         const base = `${window.location.origin}/${code}`;
         document.getElementById("short").textContent = base;
         document.getElementById("short").href = base;
