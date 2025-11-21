@@ -1,12 +1,22 @@
-import db from '../../db';
+const db = require('../db');
 
-export default async function handler(req, res) {
-  const { code } = req.query;
+module.exports = async (req, res) => {
+  try {
+    const code = req.query.code;
+    if (!code) return res.status(400).send('Missing code');
 
-  const row = await db.getLink(code);
-  if (!row) return res.status(404).send("Not found");
+    const row = await db.getLink(code);
+    if (!row) return res.status(404).send('Not found');
 
-  await db.incrementClicks(code);
+    // increment clicks
+    await db.incrementClicks(code);
 
-  return res.redirect(row.url);
-}
+    // Redirect to original URL
+    res.writeHead(302, { Location: row.url });
+    res.end();
+
+  } catch (err) {
+    console.error('REDIRECT ERROR:', err);
+    res.status(500).send('Server error');
+  }
+};
